@@ -33,10 +33,22 @@ const options = {
       let diff = new Date(ms) - now;
       const { days, hours, minutes, seconds } = convertMs(diff);
       console.log(days, hours, minutes, seconds);
-      dataSeconds.textContent = seconds;
-      dataMinutes.textContent = minutes;
-      dataHours.textContent = hours;
-      dataDays.textContent = days;
+
+      // function toString(number1) {
+      //   let numberStr = number1.toString();
+      //   if (numberStr.length > 2) {
+      //     return number1;
+      //   } else {
+      //     number1 = '0' + number;
+      //     return number1;
+      //   }
+      // }
+      const addZeroNumber = value => String(value).padStart(2, 0);
+      dataSeconds.textContent = addZeroNumber(seconds);
+      dataMinutes.textContent = addZeroNumber(minutes);
+      dataHours.textContent = addZeroNumber(hours);
+      dataDays.textContent = addZeroNumber(days);
+
       if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
         clearInterval(timerId);
         timerId = null;
@@ -49,6 +61,8 @@ const options = {
       }
       counts();
       timerId = setInterval(counts, 1000);
+      startBtn.disabled = true;
+      input.disabled = true;
     }
     startBtn.addEventListener('click', onStartBtnClick);
   },
